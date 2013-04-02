@@ -15,6 +15,9 @@
 -}
 
 import XMonad
+
+import XMonad.Config.Gnome
+
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Grid
 import XMonad.Layout.ResizableTile
@@ -43,7 +46,7 @@ myModMask            = mod4Mask       -- changes the mod key to "super"
 myFocusedBorderColor = "#ff0000"      -- color of focused border
 myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
-myTerminal           = "terminator"   -- which terminal software to use
+myTerminal           = "gnome-terminal"   -- which terminal software to use
 myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 
 
@@ -53,7 +56,7 @@ myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 -}
 
 myTitleColor     = "#eeeeee"  -- color of window title
-myTitleLength    = 80         -- truncate window title to this length
+myTitleLength    = 100         -- truncate window title to this length
 myCurrentWSColor = "#e6744c"  -- color of active workspace
 myVisibleWSColor = "#c185a7"  -- color of inactive workspace
 myUrgentWSColor  = "#cc0000"  -- color of workspace with 'urgent' window
@@ -86,9 +89,9 @@ myUrgentWSRight = "}"
 
 myWorkspaces =
   [
-    "7:Chat",  "8:Dbg", "9:Pix",
-    "4:Docs",  "5:Dev", "6:Web",
-    "1:Term",  "2:Hub", "3:Mail",
+    "7:Chat",  "8", "9:Pix",
+    "4:Dbg",  "5:Music", "6",
+    "1:Term",  "2:Web", "3:Dev",
     "0:VM",    "Extr1", "Extr2"
   ]
 
@@ -202,8 +205,10 @@ myKeyBindings =
     ((myModMask, xK_b), sendMessage ToggleStruts)
     , ((myModMask, xK_a), sendMessage MirrorShrink)
     , ((myModMask, xK_z), sendMessage MirrorExpand)
-    , ((myModMask, xK_p), spawn "synapse")
     , ((myModMask, xK_u), focusUrgent)
+    , ((myModMask, xK_p), spawn "synapse")
+    , ((myModMask, xK_F1), spawn "gnome-terminal -x ranger")
+    , ((myModMask, xK_F2), spawn "chromium-browser")
     , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")
     , ((0, 0x1008FF11), spawn "amixer -q set Master 10%-")
     , ((0, 0x1008FF13), spawn "amixer -q set Master 10%+")
@@ -256,9 +261,10 @@ myKeyBindings =
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
   resource =? "synapse" --> doIgnore
-  , resource =? "stalonetray" --> doIgnore
   , className =? "rdesktop" --> doFloat
-  , (className =? "Komodo IDE") --> doF (W.shift "5:Dev")
+  , className =? "Google-chrome"  --> doShift "2:Web"
+  , className =? "Chromium-browser"  --> doShift "2:Web"
+  , (className =? "Komodo IDE") --> doF (W.shift "3:Dev")
   , (className =? "Komodo IDE" <&&> resource =? "Komodo_find2") --> doFloat
   , (className =? "Komodo IDE" <&&> resource =? "Komodo_gotofile") --> doFloat
   , (className =? "Komodo IDE" <&&> resource =? "Toplevel") --> doFloat
@@ -342,9 +348,7 @@ main = do
   , modMask = myModMask
   , handleEventHook = fullscreenEventHook
   , startupHook = do
-      setWMName "LG3D"
       windows $ W.greedyView startupWorkspace
-      spawn "~/.xmonad/startup-hook"
   , manageHook = manageHook defaultConfig
       <+> composeAll myManagementHooks
       <+> manageDocks
