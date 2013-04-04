@@ -30,6 +30,7 @@ import XMonad.Layout.Fullscreen
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeInactive
 import XMonad.Actions.Plane
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.UrgencyHook
@@ -43,7 +44,7 @@ import Data.Ratio ((%))
 -}
 
 myModMask            = mod4Mask       -- changes the mod key to "super"
-myFocusedBorderColor = "#ff0000"      -- color of focused border
+myFocusedBorderColor = "#c22f30"      -- color of focused border
 myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
 myTerminal           = "gnome-terminal"   -- which terminal software to use
@@ -57,7 +58,7 @@ myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 
 myTitleColor     = "#eeeeee"  -- color of window title
 myTitleLength    = 100         -- truncate window title to this length
-myCurrentWSColor = "#e6744c"  -- color of active workspace
+myCurrentWSColor = "#c22f30"  -- color of active workspace
 myVisibleWSColor = "#c185a7"  -- color of inactive workspace
 myUrgentWSColor  = "#cc0000"  -- color of workspace with 'urgent' window
 myCurrentWSLeft  = "["        -- wrap active workspace with these
@@ -89,13 +90,13 @@ myUrgentWSRight = "}"
 
 myWorkspaces =
   [
-    "7:Chat",  "8", "9:Pix",
-    "4:Dbg",  "5:Music", "6",
+    "7:Chat",  "8:Xz", "9:Pix",
+    "4:Dbg",  "5:Test", "6:Music",
     "1:Term",  "2:Web", "3:Dev",
     "0:VM",    "Extr1", "Extr2"
   ]
 
-startupWorkspace = "5:Dev"  -- which workspace do you want to be on after launch?
+startupWorkspace = "3:Dev"  -- which workspace do you want to be on after launch?
 
 {-
   Layout configuration. In this section we identify which xmonad
@@ -209,6 +210,7 @@ myKeyBindings =
     , ((myModMask, xK_p), spawn "synapse")
     , ((myModMask, xK_F1), spawn "gnome-terminal -x ranger")
     , ((myModMask, xK_F2), spawn "chromium-browser")
+    , ((myModMask, xK_F3), spawn "nautilus")
     , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")
     , ((0, 0x1008FF11), spawn "amixer -q set Master 10%-")
     , ((0, 0x1008FF13), spawn "amixer -q set Master 10%+")
@@ -261,6 +263,7 @@ myKeyBindings =
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
   resource =? "synapse" --> doIgnore
+  , resource =? "stalonetray" --> doIgnore
   , className =? "rdesktop" --> doFloat
   , className =? "Google-chrome"  --> doShift "2:Web"
   , className =? "Chromium-browser"  --> doShift "2:Web"
@@ -348,19 +351,23 @@ main = do
   , modMask = myModMask
   , handleEventHook = fullscreenEventHook
   , startupHook = do
+      setWMName "LG3D"
       windows $ W.greedyView startupWorkspace
+      spawn "~/.xmonad/startup-hook"
   , manageHook = manageHook defaultConfig
       <+> composeAll myManagementHooks
       <+> manageDocks
-  , logHook = dynamicLogWithPP $ xmobarPP {
-      ppOutput = hPutStrLn xmproc
-      , ppTitle = xmobarColor myTitleColor "" . shorten myTitleLength
-      , ppCurrent = xmobarColor myCurrentWSColor ""
-        . wrap myCurrentWSLeft myCurrentWSRight
-      , ppVisible = xmobarColor myVisibleWSColor ""
-        . wrap myVisibleWSLeft myVisibleWSRight
-      , ppUrgent = xmobarColor myUrgentWSColor ""
-        . wrap myUrgentWSLeft myUrgentWSRight
-    }
+  , logHook = do
+      fadeInactiveLogHook 0.4
+      dynamicLogWithPP $ xmobarPP {
+          ppOutput = hPutStrLn xmproc
+          , ppTitle = xmobarColor myTitleColor "" . shorten myTitleLength
+          , ppCurrent = xmobarColor myCurrentWSColor ""
+            . wrap myCurrentWSLeft myCurrentWSRight
+          , ppVisible = xmobarColor myVisibleWSColor ""
+            . wrap myVisibleWSLeft myVisibleWSRight
+          , ppUrgent = xmobarColor myUrgentWSColor ""
+            . wrap myUrgentWSLeft myUrgentWSRight
+        }
   }
     `additionalKeys` myKeys

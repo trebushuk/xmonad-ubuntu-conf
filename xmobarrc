@@ -14,7 +14,7 @@ Config {
   -- Set font and default foreground/background colors. Note that
   -- the height of xmobar is controlled by the font you use.
   font = "xft:Ubuntu Mono-10",
-  bgColor = "#444444",
+  bgColor = "#1e1513",
   fgColor = "#fefefe",
 
   -- Position is top left, taking up 95% of screen.
@@ -22,11 +22,11 @@ Config {
   -- of your screen to make it play nicely with stalonetray, which we
   -- want to be taking up the remainer of the space on the right side
   -- of your screen.
-  position = BottomW L 100, 
+  position = TopW L 100,
 
   -- list of commands which gather information about your system for
-  -- presentation in the bar. 
-  commands = [ 
+  -- presentation in the bar.
+  commands = [
     -- Gather and format CPU usage information. 
     -- If it's above 50%, we consider it high usage and make it red.  
     Run Cpu [
@@ -46,9 +46,9 @@ Config {
     -- based upon your specific hardware. Or, for a desktop you may want
     -- to just remove this section entirely.
     Run Battery [
-      "-t", "<acstatus>: <left>%", 
+      "-t", "<acstatus>: <left>% / <timeleft>min", 
       "--", 
-      "-c", "charge_full",
+      "-c", "energy_full",
       "-O", "AC",
       "-o", "Bat",
       "-h", "green",
@@ -69,5 +69,5 @@ Config {
 
    -- Overall template for the layout of the xmobar contents. Note that
    -- space is significant and can be used to add padding.
-   template = " %StdinReader% }{ :: %battery% :: %cpu% :: %memory%    <fc=#e6744c>%date%</fc> "
+   template = " %StdinReader% }{ :: %battery% :: %cpu% :: %memory%    <fc=#e6744c>%date%</fc>             "
 }
