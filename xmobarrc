@@ -42,11 +42,13 @@ Config {
     -- Date formatting
     Run Date "%a %b %_d %l:%M" "date" 10,
 
+    Run Kbd [("us(dvorak)", "DV"), ("us", "US"), ("ru", "RU")],
+
     -- Battery information. This is likely to require some customization
     -- based upon your specific hardware. Or, for a desktop you may want
     -- to just remove this section entirely.
     Run Battery [
-      "-t", "<acstatus>: <left>% / <timeleft>min", 
+      "-t", "<acstatus>: <left>%/<timeleft>", 
       "--", 
       "-c", "energy_full",
       "-O", "AC",
@@ -69,5 +71,5 @@ Config {
 
    -- Overall template for the layout of the xmobar contents. Note that
    -- space is significant and can be used to add padding.
-   template = " %StdinReader% }{ :: %battery% :: %cpu% :: %memory%    <fc=#e6744c>%date%</fc>             "
+   template = " %StdinReader% }{ :: %kbd% :: %battery% :: %cpu% :: %memory%    <fc=#c22f30>%date%</fc>             "
 }
