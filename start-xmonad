@@ -91,6 +91,9 @@ stalonetray \
   --window-strut none \
 &
 
+# keuboard layout togle
+setxkbmap -layout us,ru -variant , winkeys -option 'grp:alt_shift_toggle'&
+
 # Run the gnome-keyring-daemon to avoid issues you otherwise may encounter
 # when using gnome applications which expect access to the keyring, such
 # as Empathy. This prevents prompts you may otherwise get for invalid
