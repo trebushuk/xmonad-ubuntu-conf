@@ -21,8 +21,7 @@ echo "Installing required packages..."
 sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev xmobar xcompmgr nitrogen stalonetray moreutils synapse ssh-askpass-gnome remmina
 # install Conky
 sudo apt-get install conky
-mkdir ~/.conky && unzip ~.xmonad/conky_red.zip -d ~/.conky/
-mkdir ~/.fonts && ln -s ~/.xmonad/conkyfonts ~/.fonts/
+
 # install laptop-mode
 sudo apt-get install laptop-mode-tools
 

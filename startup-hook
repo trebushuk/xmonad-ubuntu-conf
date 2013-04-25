@@ -14,7 +14,7 @@
 
 # launch conky
 if [ -z "$(pgrep conky)" ] ; then
-    conky -c ~/.conky/conky_red/conkyrc_red &
+    conky -c ~/.xmonad/conky/conkyrc_red &
 fi
 
 # launch dropbox
