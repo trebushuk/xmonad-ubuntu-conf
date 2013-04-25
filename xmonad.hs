@@ -47,7 +47,7 @@ myModMask            = mod4Mask       -- changes the mod key to "super"
 myFocusedBorderColor = "#c22f30"      -- color of focused border
 myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
-myTerminal           = "gnome-terminal"   -- which terminal software to use
+myTerminal           = "x-terminal-emulator"   -- which terminal software to use
 myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 
 
@@ -210,7 +210,7 @@ myKeyBindings =
     , ((myModMask, xK_p), spawn "synapse")
     , ((myModMask, xK_F1), spawn "gnome-terminal -x ranger")
     , ((myModMask, xK_F2), spawn "chromium-browser")
-    , ((myModMask, xK_F3), spawn "nautilus")
+    , ((myModMask, xK_F3), spawn "thunar")
     , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")
     , ((0, 0x1008FF11), spawn "amixer -q set Master 10%-")
     , ((0, 0x1008FF13), spawn "amixer -q set Master 10%+")
