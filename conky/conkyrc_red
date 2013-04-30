@@ -47,7 +47,7 @@ color2 AAAAAA
 color3 DDDDDD
 color4 C22F30
 
-lua_load ~/.conky/conky_red/conky_red.lua
+lua_load ~/.xmonad/conky/conky_red.lua
 lua_draw_hook_post main
 
 TEXT
