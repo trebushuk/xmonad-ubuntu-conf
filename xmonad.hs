@@ -34,6 +34,10 @@ import XMonad.Hooks.FadeInactive
 import XMonad.Actions.Plane
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.UrgencyHook
+
+
+import XMonad.Hooks.EwmhDesktops as ED
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import Data.Ratio ((%))
@@ -341,7 +345,7 @@ myKeys = myKeyBindings ++
 
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-  xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig {
+  xmonad $ withUrgencyHook NoUrgencyHook $ ewmh defaultConfig {
     focusedBorderColor = myFocusedBorderColor
   , normalBorderColor = myNormalBorderColor
   , terminal = myTerminal
@@ -349,7 +353,8 @@ main = do
   , layoutHook = myLayouts
   , workspaces = myWorkspaces
   , modMask = myModMask
-  , handleEventHook = fullscreenEventHook
+  , handleEventHook = handleEventHook defaultConfig
+     <+> ED.fullscreenEventHook
   , startupHook = do
       setWMName "LG3D"
       windows $ W.greedyView startupWorkspace
