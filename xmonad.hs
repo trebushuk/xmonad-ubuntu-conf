@@ -173,10 +173,15 @@ chatLayout = avoidStruts(withIM (1%7) (Title myIMRosterTitle) Grid)
 -- can use single-window mode and avoid this issue.
 gimpLayout = smartBorders(avoidStruts(ThreeColMid 1 (3/100) (3/4)))
 
+
+-- I like full screen web
+webLayouts = smartBorders(avoidStruts(noBorders Full))
+
 -- Here we combine our default layouts with our specific, workspace-locked
 -- layouts.
 myLayouts =
-  onWorkspace "7:Chat" chatLayout
+  onWorkspace "2:Web" webLayouts
+  $ onWorkspace "7:Chat" chatLayout
   $ onWorkspace "9:Pix" gimpLayout
   $ defaultLayouts
 
