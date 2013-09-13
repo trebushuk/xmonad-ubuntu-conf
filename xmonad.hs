@@ -47,12 +47,12 @@ import Data.Ratio ((%))
   simpler parts of xmonad's behavior and are straightforward to tweak.
 -}
 
-myModMask            = mod4Mask       -- changes the mod key to "super"
-myFocusedBorderColor = "#c22f30"      -- color of focused border
-myNormalBorderColor  = "#cccccc"      -- color of inactive border
-myBorderWidth        = 1              -- width of border around windows
-myTerminal           = "x-terminal-emulator"   -- which terminal software to use
-myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
+myModMask            = mod4Mask                 -- changes the mod key to "super"
+myFocusedBorderColor = "#c22f30"                -- color of focused border
+myNormalBorderColor  = "#cccccc"                -- color of inactive border
+myBorderWidth        = 1                        -- width of border around windows
+myTerminal           = "x-terminal-emulator"    -- which terminal software to use
+myIMRosterTitle      = "<username> - Skype™"    -- title of roster on IM workspace
 
 
 {-
@@ -61,7 +61,7 @@ myIMRosterTitle      = "Contact List" -- title of roster on IM workspace
 -}
 
 myTitleColor     = "#eeeeee"  -- color of window title
-myTitleLength    = 100         -- truncate window title to this length
+myTitleLength    = 100        -- truncate window title to this length
 myCurrentWSColor = "#c22f30"  -- color of active workspace
 myVisibleWSColor = "#c185a7"  -- color of inactive workspace
 myUrgentWSColor  = "#cc0000"  -- color of workspace with 'urgent' window
@@ -276,6 +276,7 @@ myManagementHooks = [
   , className =? "rdesktop" --> doFloat
   , className =? "Google-chrome"  --> doShift "2:Web"
   , className =? "Chromium-browser"  --> doShift "2:Web"
+  , className =? "Skype"  --> doShift "7:Chat"
   , (className =? "Komodo IDE") --> doF (W.shift "3:Dev")
   , (className =? "Komodo IDE" <&&> resource =? "Komodo_find2") --> doFloat
   , (className =? "Komodo IDE" <&&> resource =? "Komodo_gotofile") --> doFloat
