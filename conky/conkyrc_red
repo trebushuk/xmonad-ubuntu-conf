@@ -77,7 +77,7 @@ ${goto 90}${font Ubuntu:size=7,weight:normal}${color}used: ${fs_used /home} /hom
 ${goto 90}${font Ubuntu:size=7,weight:normal}${color}used: ${fs_used /} /
 
 ${voffset 10}
-${goto 70}${font Ubuntu:size=18,weight:bold}${color2}NET${alignr}${color2}${font Ubuntu:size=7,weight:bold}${color1}${if_up eth0}eth ${addr eth0} ${endif}${if_up wlan0}wifi ${addr wlan0}${endif}
+${goto 70}${font Ubuntu:size=18,weight:bold}${color2}NET${alignr}${color2}${font Ubuntu:size=7,weight:bold}${color1}${if_up eth0}eth ${addr eth0} ${endif}${if_up eth1}wifi ${addr eth1}${endif}
 ${goto 90}${font Ubuntu:size=7,weight:bold}${color}open ports: ${alignr}${color2}${tcp_portmon 1 65535 count}
 ${goto 90}${font Ubuntu:size=7,weight:bold}${color}${offset 10}IP${alignr}DPORT
 ${goto 90}${font Ubuntu:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rip  0}${alignr 1}${tcp_portmon 1 65535 rport  0}
