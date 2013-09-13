@@ -48,28 +48,28 @@ Config {
     -- based upon your specific hardware. Or, for a desktop you may want
     -- to just remove this section entirely.
     Run Battery [
-      "-t", "<acstatus>: <left>%/<timeleft>", 
-      "--", 
-      "-c", "energy_full",
-      "-O", "AC",
-      "-o", "Bat",
-      "-h", "green",
-      "-l", "red"
-    ] 10,
-    
+      "-t", "<left>% <timeleft> <watts>", 
+      "-L", "10", "-H", "50", "-p", "3",
+      "-h", "green", "-l", "red",
+      "--",
+      "-L", "-25", "-H", "-5",
+      "-h", "green", "-l", "red",
+      "-c", "energy_full"
+    ] 600,
+
     -- This line tells xmobar to read input from stdin. That's how we
     -- get the information that xmonad is sending it for display.
     Run StdinReader
-   ],
+  ],
 
-   -- Separator character used to wrape variables in the xmobar template 
-   sepChar = "%",
+  -- Separator character used to wrape variables in the xmobar template 
+  sepChar = "%",
 
-   -- Alignment separater characer used in the xmobar template. Everything
-   -- before this will be aligned left, everything after aligned right.
-   alignSep = "}{",
+  -- Alignment separater characer used in the xmobar template. Everything
+  -- before this will be aligned left, everything after aligned right.
+  alignSep = "}{",
 
-   -- Overall template for the layout of the xmobar contents. Note that
-   -- space is significant and can be used to add padding.
-   template = " %StdinReader% }{ :: %kbd% :: %battery% :: %cpu% :: %memory%    <fc=#c22f30>%date%</fc>             "
+  -- Overall template for the layout of the xmobar contents. Note that
+  -- space is significant and can be used to add padding.
+  template = " %StdinReader% }{<fc=#432>::</fc>%kbd%<fc=#432>::</fc>%battery%<fc=#432>::</fc>%cpu%<fc=#432>::</fc>%memory%<fc=#432>::</fc><fc=#c22f30>%date%</fc>             "
 }
